@@ -1,4 +1,1 @@
-media-capture
-=============
-
-Media capture HTML5.
+Media capture HTML5
