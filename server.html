@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+  <body>
+    <cfwebsocket name="socket" onmessage="messageHandler">
+      <video id="videoElement" controls muted>
+        <source src="media/media.mp4" type="video/webm">
+      </video>
+      <br>
+      <canvas id="canvasElement" style="border: solid 1px;"></canvas>
+      <script type="text/javascript">
+        var context,canvasElement,videoElement, previous, current;
+
+        messageHandler = function(msg){
+
+        }
+
+        document.addEventListener('DOMContentLoaded', function(){
+          videoElement = document.getElementById('videoElement');
+          canvasElement = document.getElementById('canvasElement');
+          context = canvasElement.getContext('2d');
+        });
+
+        document.getElementById('videoElement').addEventListener('loadedmetadata', function(){
+          canvasElement.width = videoElement.videoWidth;
+          canvasElement.height = videoElement.videoHeight;
+          videoElement.addEventListener('play', function(){
+            draw(this, videoElement.videoWidth, videoElement.videoHeight);
+          });
+        });
+
+        function draw(video, width, height){
+          if (video.paused || video.ended) return false;
+
+          context.drawImage(video, 0, 0, width, height);
+          current = canvasElement.toDataURL("image/png");
+          if (previous != current) {
+            socket.publish("myChannel", current);
+          }
+
+          previous = current;
+
+          setTimeout(draw, 50, video, width, height);
+      }
+    </script>
+  </body>
+</html>
