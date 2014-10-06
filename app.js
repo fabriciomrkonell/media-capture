@@ -9,15 +9,7 @@ app.set('views', __dirname + '/')
 app.use(express.static(path.join(__dirname, 'app')))
 
 app.get('/', function(req, res){
-  res.sendFile(__dirname + '/index.html');
-});
-
-app.get('/server', function(req, res){
-  res.sendFile(__dirname + '/server.html');
-});
-
-app.get('/client', function(req, res){
-  res.sendFile(__dirname + '/cliente.html');
+  res.sendfile(__dirname + '/index.html');
 });
 
 http.createServer(app).listen(app.get('port'), function() {
