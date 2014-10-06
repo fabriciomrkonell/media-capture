@@ -1,12 +1,65 @@
-<DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 	<head>
 		<title>Media capture</title>
+		<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
 	</head>
 	<body>
-		<form action="server.cgi" method="post" enctype="multipart/form-data">
-  		<input type="file" name="image" accept="image/*" capture>
-  		<input type="submit" value="Upload">
-		</form>
+		<div class="container">
+			<div class="row">
+				<div class="col-sm-12 text-center">
+					<h1>Media Capture</h1>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-sm-12">
+        	<h2>Imagem</h2>
+          <form class="form-inline" action="server.cgi" method="post" enctype="multipart/form-data">
+      	 		<div class="form-group">
+							<input type="file" name="image" accept="image/*" capture>
+						</div>
+						<div class="form-group">
+							<button type="submit" class="btn btn-success">Upload</button>
+						</div>
+					</form>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-sm-12">
+        	<h2>Video</h2>
+          <form class="form-inline" action="server.cgi" method="post" enctype="multipart/form-data">
+      	 		<div class="form-group">
+							<input type="file" name="video" accept="video/*" capture>
+						</div>
+						<div class="form-group">
+							<button type="submit" class="btn btn-success">Upload</button>
+						</div>
+					</form>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-sm-12">
+        	<h2>Áudio</h2>
+          <form class="form-inline" action="server.cgi" method="post" enctype="multipart/form-data">
+      	 		<div class="form-group">
+							<input type="file" name="audio" accept="audio/*" capture>
+						</div>
+						<div class="form-group">
+							<button type="submit" class="btn btn-success">Upload</button>
+						</div>
+					</form>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-sm-12">
+        	<h2>Arquivos específicos</h2>
+          <form class="form-inline" action="server.cgi" method="post" enctype="multipart/form-data">
+      	 		<div class="form-group">
+							<input type="file" accept="image/*" capture>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
 	</body>
 </html>
