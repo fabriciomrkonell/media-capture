@@ -1,51 +1,23 @@
 "use strict";
 
-var input = document.querySelector('input[type=file]');
+angular.module("app", []).controller("ctrl", function($scope, $http){
 
-input.onchange = function () {
-  var file = input.files[0];
-  upload(file);
-  drawOnCanvas(file);
-  displayAsImage(file);
-};
+  var socket = io();
 
-function upload(file) {
-  var form = new FormData(),
-      xhr = new XMLHttpRequest();
-  form.append('image', file);
-  xhr.open('post', 'server.php', true);
-  xhr.send(form);
-};
+  angular.extend($scope, {
+    pathIMG: "/upload/image/"
+  });
 
-function drawOnCanvas(file) {
-  var reader = new FileReader();
+  $http.get('/arquivos').success(function(data, status, headers, config) {
+    angular.extend($scope, {
+      imagens: data.imagens,
+      videos: data.videos
+    });
+  });
 
-  reader.onload = function (e) {
-    var dataURL = e.target.result,
-        c = document.querySelector('canvas'), // see Example 4
-        ctx = c.getContext('2d'),
-        img = new Image();
+  socket.on('imagens', function(imagem){
+    $scope.imagens.push(imagem);
+    $scope.$apply();
+  });
 
-    img.onload = function() {
-      c.width = img.width;
-      c.height = img.height;
-      ctx.drawImage(img, 0, 0);
-    };
-
-    img.src = dataURL;
-  };
-
-  reader.readAsDataURL(file);
-};
-
-function displayAsImage(file) {
-  var imgURL = URL.createObjectURL(file),
-      img = document.createElement('img');
-
-  img.onload = function() {
-    URL.revokeObjectURL(imgURL);
-  };
-
-  img.src = imgURL;
-  document.body.appendChild(img);
-};
+});

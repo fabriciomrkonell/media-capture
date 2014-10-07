@@ -1,20 +1,21 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" ng-app="app">
 	<head>
 		<title>Media capture</title>
-		<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+		<link rel="stylesheet" type="text/css" href="app/css/bootstrap.min.css">
 	</head>
-	<body>
+	<body ng-controller="ctrl">
 		<div class="container">
 			<div class="row">
 				<div class="col-sm-12 text-center">
 					<h1>Media Capture</h1>
+					<h4><a href="http://fabricioronchi.com">Fabrício Ronchi</a></h4>
 				</div>
 			</div>
 			<div class="row">
 				<div class="col-sm-12">
         	<h2>Imagem</h2>
-          <form class="form-inline" action="server.cgi" method="post" enctype="multipart/form-data">
+          <form class="form-inline" action="/salvar-imagem" method="post" enctype="multipart/form-data">
       	 		<div class="form-group">
 							<input type="file" name="image" accept="image/*" capture>
 						</div>
@@ -27,39 +28,44 @@
 			<div class="row">
 				<div class="col-sm-12">
         	<h2>Video</h2>
-          <form class="form-inline" action="server.cgi" method="post" enctype="multipart/form-data">
+          <form class="form-inline" action="/salvar-video" method="post" enctype="multipart/form-data">
       	 		<div class="form-group">
 							<input type="file" name="video" accept="video/*" capture>
 						</div>
-						<div class="form-group">
+						<!--<div class="form-group">
 							<button type="submit" class="btn btn-success">Upload</button>
-						</div>
+						</div>-->
 					</form>
 				</div>
 			</div>
 			<div class="row">
 				<div class="col-sm-12">
         	<h2>Áudio</h2>
-          <form class="form-inline" action="server.cgi" method="post" enctype="multipart/form-data">
+          <form class="form-inline" action="/salvar-audio" method="post" enctype="multipart/form-data">
       	 		<div class="form-group">
 							<input type="file" name="audio" accept="audio/*" capture>
 						</div>
-						<div class="form-group">
+						<!--<div class="form-group">
 							<button type="submit" class="btn btn-success">Upload</button>
-						</div>
+						</div>-->
 					</form>
 				</div>
 			</div>
-			<div class="row">
-				<div class="col-sm-12">
-        	<h2>Arquivos específicos</h2>
-          <form class="form-inline" action="server.cgi" method="post" enctype="multipart/form-data">
-      	 		<div class="form-group">
-							<input type="file" accept="image/*" capture>
-						</div>
-					</form>
+			<div class="row" style="margin-top: 100px">
+				<div class="col-sm-12 text-center">
+					<div class="panel panel-default">
+				  	<div class="panel-heading">Imagens</div>
+				  	<div class="panel-body">
+  						<div class="col-sm-3" ng-repeat="obj in imagens">
+      					<img ng-src="{{pathIMG}}{{obj}}" style="width:150px; heigth: 150px; margin-top: 50px">
+  						</div>
+				  	</div>
+					</div>
 				</div>
 			</div>
 		</div>
+		<script src="app/js/angular.min.js"></script>
+		<script src="https://cdn.socket.io/socket.io-1.1.0.js"></script>
+		<script src="app/js/app.js"></script>
 	</body>
 </html>
